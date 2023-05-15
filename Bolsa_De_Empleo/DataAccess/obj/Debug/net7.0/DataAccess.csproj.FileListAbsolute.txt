@@ -1,0 +1,14 @@
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\bin\Debug\net7.0\DataAccess.deps.json
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\bin\Debug\net7.0\DataAccess.runtimeconfig.json
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\bin\Debug\net7.0\DataAccess.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\bin\Debug\net7.0\DataAccess.pdb
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.csproj.AssemblyReference.cache
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfoInputs.cache
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.AssemblyInfo.cs
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\refint\DataAccess.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.pdb
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\DataAccess.genruntimeconfig.cache
+C:\ProyectoAPI\Bolsa_De_Empleo\DataAccess\obj\Debug\net7.0\ref\DataAccess.dll
