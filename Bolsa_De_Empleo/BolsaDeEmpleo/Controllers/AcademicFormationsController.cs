@@ -1,7 +1,6 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Entities.RequestObjects;
 using Microsoft.AspNetCore.Mvc;
-using Services.Service;
 using Services.Service.IService;
 
 namespace BolsaDeEmpleo.Controllers
@@ -40,6 +39,37 @@ namespace BolsaDeEmpleo.Controllers
 
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool deleted = await _academicFormationService.Delete(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id,  AcademicFormationVM acad_)
+        {
+            AcademicFormation academicFormation = new AcademicFormation();
+            {
+                academicFormation.institution = acad_.institution;
+                academicFormation.degree = acad_.degree;
+                academicFormation.startDate = acad_.startDate;
+                academicFormation.endDate = acad_.endDate;
+            }
+
+            var updatedFormation = await _academicFormationService.Update(id, academicFormation);
+            if (updatedFormation == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedFormation);
+
+        }
 
     }
 }

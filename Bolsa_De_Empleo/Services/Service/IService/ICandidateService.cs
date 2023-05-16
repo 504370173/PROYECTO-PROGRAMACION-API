@@ -6,5 +6,7 @@ namespace Services.Service.IService
     {
         public Task<List<Candidate>> GetAll();
         public Task<Candidate> Create(Candidate candidate);
+        public Task<Candidate> Update(int id, Candidate candidate);
+        public Task<bool> Delete(int id);
     }
 }

@@ -11,5 +11,9 @@ namespace Services.Service.IService
     {
         public Task<List<AcademicFormation>> GetAll();
         public Task<AcademicFormation> Create(AcademicFormation academicFormation);
+        public Task<AcademicFormation> Update(int id, AcademicFormation academicFormation);
+
+        public Task<bool> Delete(int id);
+
     }
 }

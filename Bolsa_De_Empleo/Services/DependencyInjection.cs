@@ -12,6 +12,8 @@ namespace Services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICandidateService, CandidateService>();
             services.AddScoped<IAcademicFormationService, AcademicFormationService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IJobOfferService, JobOfferService>();
             return services;
         }
     }

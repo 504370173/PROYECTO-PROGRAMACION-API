@@ -8,6 +8,8 @@ C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\BolsaDeEmpleo.pdb
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Azure.Core.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Azure.Identity.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Humanizer.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.AspNetCore.OpenApi.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.Data.SqlClient.dll
@@ -30,6 +32,8 @@ C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.OpenApi.
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.Win32.SystemEvents.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Mono.TextTemplating.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -63,6 +67,7 @@ C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.Gene
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.AssemblyInfoInputs.cache
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.AssemblyInfo.cs
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.csproj.CoreCompileInputs.cache
+C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.MvcApplicationPartsAssemblyInfo.cs
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.MvcApplicationPartsAssemblyInfo.cache
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\staticwebassets\msbuild.BolsaDeEmpleo.Microsoft.AspNetCore.StaticWebAssets.props
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\staticwebassets\msbuild.build.BolsaDeEmpleo.props
@@ -78,8 +83,3 @@ C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\refint\BolsaDeEmpl
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.pdb
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.genruntimeconfig.cache
 C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\ref\BolsaDeEmpleo.dll
-C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\obj\Debug\net7.0\BolsaDeEmpleo.MvcApplicationPartsAssemblyInfo.cs
-C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.AspNetCore.JsonPatch.dll
-C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Newtonsoft.Json.dll
-C:\ProyectoAPI\Bolsa_De_Empleo\BolsaDeEmpleo\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
