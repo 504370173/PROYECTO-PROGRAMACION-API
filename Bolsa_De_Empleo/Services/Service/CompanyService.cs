@@ -1,10 +1,9 @@
 ﻿using DataAccess.Entities;
 using DataAccess;
-using Services.Service;
-
 using Services.Service.IService;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using DataAccess.Entities.DataToObject;
+using DataAccess.ExtensionMethods;
 
 namespace Services.Service
 {
@@ -16,13 +15,21 @@ namespace Services.Service
             _dbContext = dbContext;
         }
 
-        public Task<List<Company>> GetAll()
+        public async Task<List<Company>> GetAll()
         {
-            return _dbContext.companies.Include("JobOffer").ToListAsync();
+            var company = await _dbContext.companies.ToListAsync();
+            foreach (var c in company)
+            {
+                await _dbContext.Entry(c).Collection(a => a.JobOffer).LoadAsync();
+            }
+
+            return company;
         }
 
-        public async Task<Company> Create(Company company)
+        public async Task<Company> Create(CompanyVM companyVM)
         {
+            Company company;// = new Company();
+            company = companyVM.toCompany();
             _dbContext.companies.Add(company);
             await _dbContext.SaveChangesAsync();
             return company;
@@ -42,7 +49,7 @@ namespace Services.Service
             return true;
         }
 
-        public async Task<Company> Update(int id, Company company)
+        public async Task<Company> Update(int id, CompanyVM companyVM)
         {
             var e = await _dbContext.companies.FindAsync(id);
             
@@ -51,11 +58,7 @@ namespace Services.Service
                 return null;
             }
 
-            e.Name = company.Name;
-            e.email = company.email;
-            e.phoneNumber = company.phoneNumber;
-            e.webSite = company.webSite;
-
+            e = companyVM.toCompany();
             await _dbContext.SaveChangesAsync();
             return e;
         }

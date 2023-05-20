@@ -2,6 +2,8 @@
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Services.Service.IService;
+using DataAccess.Entities.RequestObjects;
+using DataAccess.ExtensionMethods;
 
 namespace Services.Service
 {
@@ -16,11 +18,13 @@ namespace Services.Service
         {
             return _myDbContext.academicFormations.ToListAsync();
         }
-        public async Task<AcademicFormation> Create(AcademicFormation academicFormation)
+        public async Task<AcademicFormation> Create(AcademicFormationVM academicFormationVM)
         {
-            _myDbContext.academicFormations.Add(academicFormation);
+            AcademicFormation newAcademicFormation; //= new AcademicFormation();
+            newAcademicFormation = academicFormationVM.toAcademicFormation();
+            _myDbContext.academicFormations.Add(newAcademicFormation);
             await _myDbContext.SaveChangesAsync();
-            return academicFormation;
+            return newAcademicFormation;
         }
         public async Task<bool> Delete(int id)
         {
@@ -37,7 +41,7 @@ namespace Services.Service
             return true;
         }
 
-        public async Task<AcademicFormation> Update(int id, AcademicFormation academicFormation)
+        public async Task<AcademicFormation> Update(int id, AcademicFormationVM academicFormationVM)
         {
             var existingAcademic = await _myDbContext.academicFormations.FindAsync(id);
             if (existingAcademic == null)
@@ -45,13 +49,8 @@ namespace Services.Service
                 return null;
             }
 
-            existingAcademic.institution = academicFormation.institution;
-            existingAcademic.degree = academicFormation.degree;
-            existingAcademic.startDate = academicFormation.startDate;
-            existingAcademic.endDate = academicFormation.endDate;
-
+            existingAcademic = academicFormationVM.toAcademicFormation();
             await _myDbContext.SaveChangesAsync();
-
             return existingAcademic;
         }
     }

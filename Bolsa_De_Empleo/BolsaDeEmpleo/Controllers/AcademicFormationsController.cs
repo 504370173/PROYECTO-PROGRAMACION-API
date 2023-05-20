@@ -2,6 +2,7 @@
 using DataAccess.Entities.RequestObjects;
 using Microsoft.AspNetCore.Mvc;
 using Services.Service.IService;
+using DataAccess.ExtensionMethods;
 
 namespace BolsaDeEmpleo.Controllers
 {
@@ -16,7 +17,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AcademicFormation>>> GetAll()
+        public async Task<ActionResult<IEnumerable<AcademicFormationVM>>> GetAll()
         {
 
             List<AcademicFormation> academicFormation = await _academicFormationService.GetAll();
@@ -24,20 +25,17 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(AcademicFormationVM acad_Request)
+        public async Task<ActionResult<AcademicFormation>> Create(AcademicFormationVM acad_Request)
         {
-            AcademicFormation academicFormation = new AcademicFormation();
-            academicFormation.institution = acad_Request.institution;
-            academicFormation.degree = acad_Request.degree;
-            academicFormation.startDate = acad_Request.startDate;
-            academicFormation.endDate = acad_Request.endDate;
-            academicFormation.candidateId = acad_Request.candidateId;
+            if(acad_Request == null)
+            {
+                return NotFound();
+            }
 
-
-            AcademicFormation createdAcademicFormation = await _academicFormationService.Create(academicFormation);
+            AcademicFormation createdAcademicFormation = await _academicFormationService.Create(acad_Request);
             return Ok(createdAcademicFormation);
-
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
@@ -51,23 +49,19 @@ namespace BolsaDeEmpleo.Controllers
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id,  AcademicFormationVM acad_)
-        {
-            AcademicFormation academicFormation = new AcademicFormation();
-            {
-                academicFormation.institution = acad_.institution;
-                academicFormation.degree = acad_.degree;
-                academicFormation.startDate = acad_.startDate;
-                academicFormation.endDate = acad_.endDate;
-            }
 
-            var updatedFormation = await _academicFormationService.Update(id, academicFormation);
-            if (updatedFormation == null)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<AcademicFormation>> Update(int id,  AcademicFormationVM acad_Request)
+        {
+            AcademicFormation academicFormation; //= new AcademicFormation();
+            academicFormation = acad_Request.toAcademicFormation();
+
+            var updatedCandidate = await _academicFormationService.Update(id, acad_Request);
+            if (updatedCandidate == null)
             {
                 return NotFound();
             }
-            return Ok(updatedFormation);
+            return Ok(updatedCandidate);
 
         }
 

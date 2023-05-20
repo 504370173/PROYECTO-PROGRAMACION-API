@@ -2,6 +2,8 @@
 {
     public class AcademicFormation
     {
+        //public readonly object CandidateSkill;
+
         public int academicFormationId { get; set; }
         public int candidateId { get; set; }
         public string institution { get; set; }

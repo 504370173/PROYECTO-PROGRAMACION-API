@@ -14,7 +14,7 @@
         public bool status { get; set;}
 
         public List<AcademicFormation> AcademicFormation { get; set; }
-        //public List<CandidateSkill> candidateSkills { get; set;}
+        public List<CandidateSkill> CandidateSkill { get; set; }
 
     }
 }

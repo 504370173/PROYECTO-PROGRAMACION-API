@@ -1,7 +1,7 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Entities.DataToObject;
+using DataAccess.ExtensionMethods;
 using Microsoft.AspNetCore.Mvc;
-using Services.Service;
 using Services.Service.IService;
 
 namespace BolsaDeEmpleo.Controllers
@@ -17,7 +17,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<JobOffer>>> GetAll()
+        public async Task<ActionResult<IEnumerable<JobOfferVM>>> GetAll()
         {
 
             List<JobOffer> jobOffer = await _jobOfferService.GetAll();
@@ -25,17 +25,14 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(JobOfferVM offer_Request)
+        public async Task<ActionResult<JobOffer>> Create(JobOfferVM offer_Request)
         {
-            JobOffer jobOffer = new JobOffer();
-            jobOffer.position = offer_Request.position;
-            jobOffer.description = offer_Request.description;
-            jobOffer.createdAt = offer_Request.createdAt;
-            jobOffer.updatedAt = offer_Request.updatedAt;
-            jobOffer.status = offer_Request.status;
-            jobOffer.companyId = offer_Request.companyId;
+            if (offer_Request == null)
+            {
+                return NotFound();
+            }
 
-            JobOffer createdJobOffer = await _jobOfferService.Create(jobOffer);
+            JobOffer createdJobOffer = await _jobOfferService.Create(offer_Request);
             return Ok(createdJobOffer);
 
         }
@@ -54,22 +51,19 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, JobOfferVM offer_)
+        public async Task<ActionResult<JobOffer>> Update(int id, JobOfferVM offer_)
         {
-            JobOffer jobOffer = new JobOffer();
-            {
-                jobOffer.position = offer_.position;
-                jobOffer.description = offer_.description;
-                jobOffer.createdAt = offer_.createdAt;
-                jobOffer.updatedAt= offer_.updatedAt;
-                jobOffer.status = offer_.status;
-            }
+            JobOffer jobOffer; //= new JobOffer();
+            jobOffer = offer_.toJobOffer();
+           
 
-            var updatedOffer = await _jobOfferService.Update(id, jobOffer);
+            var updatedOffer = await _jobOfferService.Update(id, offer_);
+
             if (updatedOffer == null)
             {
                 return NotFound();
             }
+
             return Ok(updatedOffer);
 
         }

@@ -1,6 +1,7 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Entities.DataToObject;
 using Microsoft.AspNetCore.Mvc;
+using Services.Service;
 using Services.Service.IService;
 
 namespace BolsaDeEmpleo.Controllers
@@ -16,7 +17,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Company>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CompanyVM>>> GetAll()
         {
             List<Company> companie = await _companyService.GetAll();
             return Ok(companie);
@@ -25,14 +26,16 @@ namespace BolsaDeEmpleo.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CompanyVM comp_Request)
         {
-            Company company = new Company();
-            company.Name = comp_Request.Name;
-            company.email = comp_Request.email;
-            company.phoneNumber = comp_Request.phoneNumber;
-            company.webSite = comp_Request.webSite;
+            if (comp_Request == null)
+            {
+                return BadRequest();
+            }
 
-            Company createdCompany = await _companyService.Create(company);
-            return Ok(createdCompany);
+            Company c = await _companyService.Create(comp_Request);
+
+            //Candidate createdCandidate = await
+            //_candidateService.Create(candidate);
+            return Ok(c);
         }
 
         [HttpDelete("{id}")]
@@ -51,16 +54,12 @@ namespace BolsaDeEmpleo.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, CompanyVM comp_Request)
         {
-            Company company = new Company();
-
+            if (comp_Request == null)
             {
-                company.Name = comp_Request.Name;
-                company.email = comp_Request.email;
-                company.phoneNumber = comp_Request.phoneNumber;
-                company.webSite = comp_Request.webSite;
+                return BadRequest();
             }
 
-            var updatedCompany = await _companyService.Update(id, company);
+            var updatedCompany = await _companyService.Update(id, comp_Request);
 
             if (updatedCompany == null)
             {

@@ -14,6 +14,10 @@ namespace Services
             services.AddScoped<IAcademicFormationService, AcademicFormationService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IJobOfferService, JobOfferService>();
+            services.AddScoped<ISkillService, SkillService>();
+            services.AddScoped<ICandidateSkillService, CandidateSkillService>();
+
+
             return services;
         }
     }

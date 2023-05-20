@@ -1,17 +1,13 @@
 ﻿using DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataAccess.Entities.DataToObject;
 
 namespace Services.Service.IService
 {
     public interface ICompanyService
     {
         public Task<List<Company>> GetAll();
-        public Task<Company> Create(Company company);
-        public Task<Company> Update(int id, Company company);
+        public Task<Company> Create(CompanyVM companyVM);
+        public Task<Company> Update(int id, CompanyVM companyVM);
         public Task<bool> Delete(int id);
     }
 }

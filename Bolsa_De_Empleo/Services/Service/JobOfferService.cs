@@ -2,6 +2,8 @@
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Services.Service.IService;
+using DataAccess.Entities.DataToObject;
+using DataAccess.ExtensionMethods;
 
 namespace Services.Service
 {
@@ -17,8 +19,10 @@ namespace Services.Service
         {
             return _myDbContext.jobOffers.ToListAsync();
         }
-        public async Task<JobOffer> Create(JobOffer jobOffer)
+        public async Task<JobOffer> Create(JobOfferVM jobOfferVM)
         {
+            JobOffer jobOffer;
+            jobOffer = jobOfferVM.toJobOffer();
             _myDbContext.jobOffers.Add(jobOffer);
             await _myDbContext.SaveChangesAsync();
             return jobOffer;
@@ -37,24 +41,19 @@ namespace Services.Service
 
             return true;
         }
-        public async Task<JobOffer> Update(int id, JobOffer jobOffer)
+        public async Task<JobOffer> Update(int id, JobOfferVM jobOfferVM)
         {
-            var existingOffer = await _myDbContext.jobOffers.FindAsync(id);
 
-            if (existingOffer == null)
+            var e = await _myDbContext.jobOffers.FindAsync(id);
+
+            if (e == null)
             {
                 return null;
             }
 
-            existingOffer.position = jobOffer.position;
-            existingOffer.description = jobOffer.description;
-            existingOffer.createdAt = jobOffer.createdAt;
-            existingOffer.updatedAt = jobOffer.updatedAt;
-            existingOffer.status = jobOffer.status;
-
+            e = jobOfferVM.toJobOffer();
             await _myDbContext.SaveChangesAsync();
-
-            return existingOffer;
+            return e;
         }
 
     }

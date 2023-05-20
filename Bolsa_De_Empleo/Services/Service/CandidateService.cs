@@ -1,5 +1,7 @@
-﻿using DataAccess;
+﻿using DataAcces;
+using DataAccess;
 using DataAccess.Entities;
+using DataAccess.Entities.RequestObjects;
 using Microsoft.EntityFrameworkCore;
 using Services.Service.IService;
 
@@ -12,15 +14,30 @@ namespace Services.Service
         {
             _myDbContext = myDbContext;
         }
-        public Task<List<Candidate>> GetAll()
+        public async Task<List<Candidate>> GetAll()
         {
-            return _myDbContext.candidates.Include("AcademicFormation").ToListAsync();
+            var candidato = await _myDbContext.candidates.ToListAsync();
+
+            foreach (var can in candidato) 
+            {
+                await _myDbContext.Entry(can).Collection(a => a.AcademicFormation).LoadAsync();
+                await _myDbContext.Entry(can).Collection(a => a.CandidateSkill).LoadAsync();
+
+            }
+
+            return candidato;
+            //return _myDbContext.candidates
+            //.Include("AcademicFormation")
+            ////.ThenInclude(t => t.CandidateSkill)
+            //.ToListAsync();
         }
-        public async Task<Candidate> Create(Candidate candidate) 
+        public async Task<Candidate> Create(CandidateVM candidateVM) 
         {
-            _myDbContext.candidates.Add(candidate);
+            Candidate newCandidate; //= new Candidate();
+            newCandidate = candidateVM.toCandidate();
+            _myDbContext.candidates.Add(newCandidate);
             await _myDbContext.SaveChangesAsync();
-            return candidate;
+            return newCandidate;
         }
 
         public async Task<bool> Delete(int id)
@@ -38,27 +55,24 @@ namespace Services.Service
             return true;
         }
 
-        public async Task<Candidate> Update(int id, Candidate candidate)
+        public async Task<Candidate> Update(int id, CandidateVM candidateVM)
         {
-            var existingCandidate = await _myDbContext.candidates.FindAsync(id);
-            if (existingCandidate == null)
-            {
-                return null;
-            }
+            Candidate c = await _myDbContext.candidates.FindAsync(id);
+             c = candidateVM.toCandidate();
 
-            existingCandidate.name = candidate.name;
-            existingCandidate.lastName1 = candidate.lastName1;
-            existingCandidate.lastName2 = candidate.lastName2;
-            existingCandidate.email = candidate.email;
-            existingCandidate.phoneNumber = candidate.phoneNumber;
-            existingCandidate.summary = candidate.summary;
-            existingCandidate.createdAt = candidate.createdAt;
-            existingCandidate.updatedAt = candidate.updatedAt;
-            existingCandidate.status = candidate.status;
-
+            _myDbContext.Entry(c).State = EntityState.Modified;
             await _myDbContext.SaveChangesAsync();
+            return c;
+            //var existingCandidate = await _myDbContext.candidates.FindAsync(id);
 
-            return existingCandidate;
+            //if (existingCandidate == null)
+            //{
+            //    return null;
+            //}
+
+            //existingCandidate = candidateVM.toCandidate();
+            //await _myDbContext.SaveChangesAsync();
+            //return existingCandidate;
         }
     }
 }

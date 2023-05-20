@@ -1,9 +1,8 @@
 ﻿using DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services.Service.IService;
-using Microsoft.EntityFrameworkCore;
 using DataAccess.Entities.RequestObjects;
-using Services.Service;
+using DataAcces;
 
 namespace BolsaDeEmpleo.Controllers
 {
@@ -19,7 +18,7 @@ namespace BolsaDeEmpleo.Controllers
 
         //GET: api/Candidates
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Candidate>>> GetAll()
+        public async Task<ActionResult<IEnumerable<CandidateVM>>> GetAll()
         {
 
             List<Candidate> candidates = await _candidateService.GetAll();
@@ -29,19 +28,16 @@ namespace BolsaDeEmpleo.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CandidateVM can_Request)
         {
-            Candidate candidate = new Candidate();
-            candidate.name = can_Request.name;
-            candidate.lastName1 = can_Request.lastName1;
-            candidate.lastName2 = can_Request.lastName2;
-            candidate.email = can_Request.email;
-            candidate.phoneNumber = can_Request.phoneNumber;
-            candidate.summary = can_Request.summary;
-            candidate.createdAt = can_Request.createdAt;
-            candidate.updatedAt = can_Request.updatedAt;
-            candidate.status = can_Request.status;
+            if( can_Request == null) 
+            {
+                return BadRequest();
+            }
 
-            Candidate createdCandidate = await _candidateService.Create(candidate);
-            return Ok(createdCandidate);
+            Candidate c = await _candidateService.Create(can_Request);
+
+            //Candidate createdCandidate = await
+            //_candidateService.Create(candidate);
+            return Ok(c);
 
         }
 
@@ -61,19 +57,9 @@ namespace BolsaDeEmpleo.Controllers
         public async Task<IActionResult> Update(int id, CandidateVM can_Request)
         {
             Candidate candidate = new Candidate();
-            {
-                candidate.name = can_Request.name;
-                candidate.lastName1 = can_Request.lastName1;
-                candidate.lastName2 = can_Request.lastName2;
-                candidate.email = can_Request.email;
-                candidate.phoneNumber = can_Request.phoneNumber;
-                candidate.summary = can_Request.summary;
-                candidate.createdAt = can_Request.createdAt;
-                candidate.updatedAt = can_Request.updatedAt;
-                candidate.status = can_Request.status;
-            }
+            candidate = can_Request.toCandidate();
 
-            var updatedCandidate = await _candidateService.Update(id, candidate);
+            var updatedCandidate = await _candidateService.Update(id, can_Request);
             if (updatedCandidate == null)
             {
                 return NotFound();
@@ -81,6 +67,34 @@ namespace BolsaDeEmpleo.Controllers
             return Ok(updatedCandidate);
         }
 
-
     }
 }
+
+
+
+//[HttpPut("{id}")]
+//public async Task<IActionResult> Update(int id, CandidateVM can_Request)
+//{
+//    if (can_Request == null)
+//    {
+//        return BadRequest();
+//    }
+
+//    var k = await _candidateService.GetById(id);
+
+//    if (k == null)
+//    {
+//        return NotFound();
+//    }
+
+//    await _candidateService.Update(id, can_Request);
+//    return NoContent();
+
+//    //Candidate updatedCandidate = await _candidateService.Update(id, can_Request);
+//    //if (updatedCandidate == null)
+//    //{
+//    //    return NotFound();
+//    //}
+
+//    //return Ok(updatedCandidate);
+//}

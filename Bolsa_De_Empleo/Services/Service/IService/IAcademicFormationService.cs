@@ -1,17 +1,13 @@
 ﻿using DataAccess.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using DataAccess.Entities.RequestObjects;
 
 namespace Services.Service.IService
 {
     public interface IAcademicFormationService
     {
         public Task<List<AcademicFormation>> GetAll();
-        public Task<AcademicFormation> Create(AcademicFormation academicFormation);
-        public Task<AcademicFormation> Update(int id, AcademicFormation academicFormation);
+        public Task<AcademicFormation> Create(AcademicFormationVM academicFormationVM);
+        public Task<AcademicFormation> Update(int id, AcademicFormationVM academicFormationVM);
 
         public Task<bool> Delete(int id);
 
