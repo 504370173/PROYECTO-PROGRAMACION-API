@@ -15,9 +15,23 @@ namespace Services.Service
             _myDbContext = myDbContext;
         }
 
-        public Task<List<JobOffer>> GetAll()
+        public async Task<List<JobOffer>> GetAll()
         {
-            return _myDbContext.jobOffers.ToListAsync();
+            var jobOffer = await _myDbContext.jobOffers
+            .Include(c => c.JobApplication)
+             //.Include(c => c.CandidateSkill)
+             //.Include(c => c.JobApplication)
+            .ToListAsync();
+
+            return jobOffer;
+            //var s = await _myDbContext.jobOffers.ToListAsync();
+            //foreach (var c in s)
+            //{
+            //    await _myDbContext.Entry(c).Collection(a => a.JobApplication).LoadAsync();
+            //}
+
+            //return s;
+            //return _myDbContext.jobOffers.ToListAsync();
         }
         public async Task<JobOffer> Create(JobOfferVM jobOfferVM)
         {
@@ -44,14 +58,21 @@ namespace Services.Service
         public async Task<JobOffer> Update(int id, JobOfferVM jobOfferVM)
         {
 
-            var e = await _myDbContext.jobOffers.FindAsync(id);
+            JobOffer e = await _myDbContext.jobOffers.FindAsync(id);
 
             if (e == null)
             {
                 return null;
             }
 
-            e = jobOfferVM.toJobOffer();
+            e.position = jobOfferVM.position;
+            e.description = jobOfferVM.description;
+            e.createdAt = jobOfferVM.createdAt;
+            e.updatedAt = jobOfferVM.updatedAt;
+            e.status = jobOfferVM.status;
+            e.companyId = jobOfferVM.companyId;
+
+            _myDbContext.Entry(e).State = EntityState.Modified;
             await _myDbContext.SaveChangesAsync();
             return e;
         }

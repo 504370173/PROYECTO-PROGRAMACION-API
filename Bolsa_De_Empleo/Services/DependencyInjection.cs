@@ -16,7 +16,8 @@ namespace Services
             services.AddScoped<IJobOfferService, JobOfferService>();
             services.AddScoped<ISkillService, SkillService>();
             services.AddScoped<ICandidateSkillService, CandidateSkillService>();
-
+            services.AddScoped<IJobApplicationService, JobApplicationService>();
+            services.AddScoped<IOfferSkillService, OfferSkillService>();
 
             return services;
         }

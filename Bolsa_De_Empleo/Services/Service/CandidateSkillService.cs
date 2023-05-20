@@ -16,21 +16,27 @@ namespace Services.Service
             _dbContext = dbContext;
         }
 
-        public async Task<List<CandidateSkillVM>> GetAll()
+        public async Task<List<CandidateSkill>> GetAll()
         {
+            var candidatoSkill = await _dbContext.candidateSkills
+       .Include(c => c.Skill)
+       .Include(c => c.Candidate)
+       //.Include(c => c.JobApplication)
+       .ToListAsync();
 
-            List<CandidateSkill> Lista = await _dbContext.candidateSkills.ToListAsync();
-            List<CandidateSkillVM> ListaVM = new List<CandidateSkillVM>();
+            return candidatoSkill;
+            //List<CandidateSkill> Lista = await _dbContext.candidateSkills.ToListAsync();
+            //List<CandidateSkillVM> ListaVM = new List<CandidateSkillVM>();
 
-            foreach (CandidateSkill candidateSkill in Lista)
-            {
-                CandidateSkillVM newCandidateSkillVm = new CandidateSkillVM();
-                newCandidateSkillVm.SkillId = candidateSkill.SkillId;
-                newCandidateSkillVm.CandidateId = candidateSkill.CandidateId;
-                ListaVM.Add(newCandidateSkillVm);
-            }
+            //foreach (CandidateSkill candidateSkill in Lista)
+            //{
+            //    CandidateSkillVM newCandidateSkillVm = new CandidateSkillVM();
+            //    newCandidateSkillVm.SkillId = candidateSkill.SkillId;
+            //    newCandidateSkillVm.CandidateId = candidateSkill.CandidateId;
+            //    ListaVM.Add(newCandidateSkillVm);
+            //}
 
-            return ListaVM;
+            //return ListaVM;
         }
 
         public async Task<CandidateSkill> Create(CandidateSkillVM candidateSkillVM)
@@ -59,15 +65,29 @@ namespace Services.Service
 
         public async Task<CandidateSkill> Update(int id, CandidateSkillVM candidateSkillVM)
         {
-            var existingAcaSkill = await _dbContext.candidateSkills.FindAsync(id);
-            if (existingAcaSkill == null)
+            CandidateSkill existingCandidateSkill = await _dbContext.candidateSkills.FindAsync(id);
+
+            if (existingCandidateSkill == null)
             {
-                return null;
+                return null; // Retorna null si no se encuentra el candidato existente
             }
 
-            existingAcaSkill = candidateSkillVM.toCandidateSkill();
+            existingCandidateSkill.CandidateId = candidateSkillVM.CandidateId;
+            existingCandidateSkill.SkillId = candidateSkillVM.SkillId;
+
+            _dbContext.Entry(existingCandidateSkill).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
-            return existingAcaSkill;
+
+            return existingCandidateSkill;
+            //var existingAcaSkill = await _dbContext.candidateSkills.FindAsync(id);
+            //if (existingAcaSkill == null)
+            //{
+            //    return null;
+            //}
+
+            //existingAcaSkill = candidateSkillVM.toCandidateSkill();
+            //await _dbContext.SaveChangesAsync();
+            //return existingAcaSkill;
         } 
 
     }

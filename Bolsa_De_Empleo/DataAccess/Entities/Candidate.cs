@@ -15,6 +15,7 @@
 
         public List<AcademicFormation> AcademicFormation { get; set; }
         public List<CandidateSkill> CandidateSkill { get; set; }
+        public List<JobApplication> JobApplication { get; set; }
 
     }
 }

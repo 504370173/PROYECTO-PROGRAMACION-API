@@ -26,7 +26,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CandidateVM can_Request)
+        public async Task<IActionResult> PostCandidates(CandidateVM can_Request)
         {
             if( can_Request == null) 
             {

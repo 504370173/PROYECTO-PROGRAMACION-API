@@ -43,15 +43,32 @@ namespace Services.Service
 
         public async Task<AcademicFormation> Update(int id, AcademicFormationVM academicFormationVM)
         {
-            var existingAcademic = await _myDbContext.academicFormations.FindAsync(id);
-            if (existingAcademic == null)
+            AcademicFormation existingFormation = await _myDbContext.academicFormations.FindAsync(id);
+
+            if (existingFormation == null)
             {
-                return null;
+                return null; // Retorna null si no se encuentra el candidato existente
             }
 
-            existingAcademic = academicFormationVM.toAcademicFormation();
+            existingFormation.institution = academicFormationVM.institution;
+            existingFormation.degree = academicFormationVM.degree;
+            existingFormation.startDate = academicFormationVM.startDate;
+            existingFormation.endDate = academicFormationVM.endDate;
+            existingFormation.candidateId = academicFormationVM.candidateId;
+
+            _myDbContext.Entry(existingFormation).State = EntityState.Modified;
             await _myDbContext.SaveChangesAsync();
-            return existingAcademic;
+
+            return existingFormation;
+            //var existingAcademic = await _myDbContext.academicFormations.FindAsync(id);
+            //if (existingAcademic == null)
+            //{
+            //    return null;
+            //}
+
+            //existingAcademic = academicFormationVM.toAcademicFormation();
+            //await _myDbContext.SaveChangesAsync();
+            //return existingAcademic;
         }
     }
 }

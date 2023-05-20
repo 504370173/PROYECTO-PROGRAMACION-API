@@ -27,7 +27,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Skill>> Create(SkillVM skill_Request)
+        public async Task<ActionResult<Skill>> PostSkills(SkillVM skill_Request)
         {
             if (skill_Request == null)
             {

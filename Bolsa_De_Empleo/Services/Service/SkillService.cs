@@ -17,6 +17,13 @@ namespace Services.Service
 
         public Task<List<Skill>> GetAll()
         {
+            //var skill = await _myDbContext.skills.ToListAsync();
+            //foreach (var c in skill)
+            //{
+            //    await _myDbContext.Entry(c).Collection(a => a.CandidateSkill).LoadAsync();
+            //}
+
+            //return skill;
             return _myDbContext.skills.ToListAsync();
         }
 

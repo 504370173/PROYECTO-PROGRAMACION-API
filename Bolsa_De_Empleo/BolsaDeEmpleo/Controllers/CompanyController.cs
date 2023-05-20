@@ -24,7 +24,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CompanyVM comp_Request)
+        public async Task<IActionResult> PostCompany(CompanyVM comp_Request)
         {
             if (comp_Request == null)
             {

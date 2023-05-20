@@ -1,8 +1,6 @@
 ﻿using DataAccess.Entities;
 using DataAccess.Entities.DataToObject;
-using DataAccess.Entities.RequestObjects;
 using Microsoft.AspNetCore.Mvc;
-using Services.Service;
 using Services.Service.IService;
 
 namespace BolsaDeEmpleo.Controllers
@@ -22,7 +20,7 @@ namespace BolsaDeEmpleo.Controllers
         public async Task<ActionResult<IEnumerable<CandidateSkillVM>>> GetAll()
         {
 
-            List<CandidateSkillVM> candidateSkillVm = await _candidateSkillService.GetAll();
+            List<CandidateSkill> candidateSkillVm = await _candidateSkillService.GetAll();
             if(candidateSkillVm == null)
             {
                 return NotFound();
@@ -31,7 +29,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CandidateSkill>> Create(CandidateSkillVM canSkill_Request)
+        public async Task<ActionResult<CandidateSkill>> PostCanSkills(CandidateSkillVM canSkill_Request)
         {
             if(canSkill_Request == null)
             {

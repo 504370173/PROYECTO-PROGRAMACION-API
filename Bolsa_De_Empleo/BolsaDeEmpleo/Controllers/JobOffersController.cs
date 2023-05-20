@@ -25,7 +25,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<JobOffer>> Create(JobOfferVM offer_Request)
+        public async Task<ActionResult<JobOffer>> PostJobOffers(JobOfferVM offer_Request)
         {
             if (offer_Request == null)
             {

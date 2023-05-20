@@ -16,16 +16,26 @@ namespace Services.Service
         }
         public async Task<List<Candidate>> GetAll()
         {
-            var candidato = await _myDbContext.candidates.ToListAsync();
+            var candidatos = await _myDbContext.candidates
+       .Include(c => c.AcademicFormation)
+       .Include(c => c.CandidateSkill)
+       .Include(c => c.JobApplication)
+       .ToListAsync();
 
-            foreach (var can in candidato) 
-            {
-                await _myDbContext.Entry(can).Collection(a => a.AcademicFormation).LoadAsync();
-                await _myDbContext.Entry(can).Collection(a => a.CandidateSkill).LoadAsync();
+            return candidatos;
+            //var candidato = await _myDbContext.candidates.ToListAsync();
 
-            }
+            //foreach (var can in candidato) 
+            //{
+            //    await _myDbContext.Entry(can).Collection(a => a.AcademicFormation).LoadAsync();
+            //    await _myDbContext.Entry(can).Collection(a => a.CandidateSkill).LoadAsync();
+            //    await _myDbContext.Entry(can).Collection(a => a.JobApplication).LoadAsync();
 
-            return candidato;
+
+            //}
+
+            //return candidato;
+            //----*----
             //return _myDbContext.candidates
             //.Include("AcademicFormation")
             ////.ThenInclude(t => t.CandidateSkill)
@@ -57,22 +67,34 @@ namespace Services.Service
 
         public async Task<Candidate> Update(int id, CandidateVM candidateVM)
         {
-            Candidate c = await _myDbContext.candidates.FindAsync(id);
-             c = candidateVM.toCandidate();
+            Candidate existingCandidate = await _myDbContext.candidates.FindAsync(id);
 
-            _myDbContext.Entry(c).State = EntityState.Modified;
+            if (existingCandidate == null)
+            {
+                return null; // Retorna null si no se encuentra el candidato existente
+            }
+
+            existingCandidate.name = candidateVM.name;
+            existingCandidate.lastName1 = candidateVM.lastName1;
+            existingCandidate.lastName2 = candidateVM.lastName2;
+            existingCandidate.email = candidateVM.email;
+            existingCandidate.phoneNumber = candidateVM.phoneNumber;
+            existingCandidate.summary = candidateVM.summary;
+            existingCandidate.createdAt = DateTime.Now;
+            existingCandidate.updatedAt = DateTime.Now;
+            existingCandidate.status = candidateVM.status;
+
+            _myDbContext.Entry(existingCandidate).State = EntityState.Modified;
             await _myDbContext.SaveChangesAsync();
-            return c;
-            //var existingCandidate = await _myDbContext.candidates.FindAsync(id);
 
-            //if (existingCandidate == null)
-            //{
-            //    return null;
-            //}
+            return existingCandidate;
+            //Candidate c = await _myDbContext.candidates.FindAsync(id);
+            // c = candidateVM.toCandidate();
 
-            //existingCandidate = candidateVM.toCandidate();
+            //_myDbContext.Entry(c).State = EntityState.Modified;
             //await _myDbContext.SaveChangesAsync();
-            //return existingCandidate;
+            //return c;
+
         }
     }
 }

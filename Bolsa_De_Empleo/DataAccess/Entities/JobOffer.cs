@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataAccess.Entities
+﻿namespace DataAccess.Entities
 {
     public class JobOffer
     {
@@ -16,8 +10,8 @@ namespace DataAccess.Entities
         public DateTime updatedAt { get; set; }
         public bool status { get; set; }
         public Company Company { get; set; }
-        //public List<OfferedSkill> offeredSkill { get; set; }
-        //public List<JobApplication> application { get; set; }
+        public List<JobApplication> JobApplication { get; set; }
+        public List<OfferSkill> OfferSkill { get; set; }
 
     }
 }

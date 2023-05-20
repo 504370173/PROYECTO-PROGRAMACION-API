@@ -17,13 +17,20 @@ namespace Services.Service
 
         public async Task<List<Company>> GetAll()
         {
-            var company = await _dbContext.companies.ToListAsync();
-            foreach (var c in company)
-            {
-                await _dbContext.Entry(c).Collection(a => a.JobOffer).LoadAsync();
-            }
+            var company = await _dbContext.companies
+      .Include(c => c.JobOffer)
+      //.Include(c => c.CandidateSkill)
+      //.Include(c => c.JobApplication)
+      .ToListAsync();
 
             return company;
+            //var company = await _dbContext.companies.ToListAsync();
+            //foreach (var c in company)
+            //{
+            //    await _dbContext.Entry(c).Collection(a => a.JobOffer).LoadAsync();
+            //}
+
+            //return company;
         }
 
         public async Task<Company> Create(CompanyVM companyVM)
@@ -51,14 +58,19 @@ namespace Services.Service
 
         public async Task<Company> Update(int id, CompanyVM companyVM)
         {
-            var e = await _dbContext.companies.FindAsync(id);
+            Company e = await _dbContext.companies.FindAsync(id);
             
             if (e == null) 
             {
                 return null;
             }
+            e.Name = companyVM.Name;
+            e.email = companyVM.email;
+            e.phoneNumber = companyVM.phoneNumber;
+            e.webSite = companyVM.webSite;
 
-            e = companyVM.toCompany();
+            _dbContext.Entry(e).State = EntityState.Modified;
+
             await _dbContext.SaveChangesAsync();
             return e;
         }

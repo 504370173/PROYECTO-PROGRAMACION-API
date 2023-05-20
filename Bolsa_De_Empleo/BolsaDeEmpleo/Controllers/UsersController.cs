@@ -33,7 +33,7 @@ namespace BolsaDeEmpleo.Controllers
 
         //POST: api/Users
         [HttpPost]
-        public async Task<ActionResult<User>> Create(User user)
+        public async Task<ActionResult<User>> PostUsers(User user)
         {
             User createdUser = await _userService.Create(user);
             return Ok(createdUser);

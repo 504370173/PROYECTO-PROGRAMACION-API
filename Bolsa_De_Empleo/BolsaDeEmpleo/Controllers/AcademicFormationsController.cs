@@ -25,7 +25,7 @@ namespace BolsaDeEmpleo.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AcademicFormation>> Create(AcademicFormationVM acad_Request)
+        public async Task<ActionResult<AcademicFormation>> PostAcademics(AcademicFormationVM acad_Request)
         {
             if(acad_Request == null)
             {
